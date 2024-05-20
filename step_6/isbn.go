@@ -11,27 +11,6 @@ type ISBN interface {
 	String() string
 }
 
-func ParseISBN(s string) ISBN {
-	var digits []int
-	for _, r := range s {
-		if r >= '0' && r <= '9' {
-			digits = append(digits, int(r-'0'))
-		}
-	}
-	return NewISBN(digits...)
-}
-
-func NewISBN(digits ...int) ISBN {
-	switch len(digits) {
-	case 10:
-		return NewISBN10(digits...)
-	case 13:
-		return NewISBN13(digits...)
-	default:
-		panic("invalid isbn length")
-	}
-}
-
 type isbn []int
 
 func (n isbn) String() string {
@@ -92,8 +71,4 @@ func (n isbn13) CalculateCheckDigit() int {
 
 func (n isbn13) String() string {
 	return isbn(n).String()
-}
-
-func Validate(isbn ISBN) bool {
-	return isbn.CalculateCheckDigit() == isbn.CheckDigit()
 }

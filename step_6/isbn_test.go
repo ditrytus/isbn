@@ -20,7 +20,7 @@ func Test_Validate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Validate(tt.isbn); got != tt.want {
+			if got := Validate(tt.isbn); got != nil == tt.want {
 				t.Errorf("Validate() = %v, want %v", got, tt.want)
 			}
 		})
