@@ -40,7 +40,18 @@ func (n isbn10) CalculateCheckDigit() int {
 }
 
 func (n isbn10) String() string {
-	return isbn(n).String()
+	var b strings.Builder
+	b.WriteString(isbn(n[:len(n)-1]).String())
+	if n.CheckDigit() == 10 {
+		b.WriteString("X")
+	} else {
+		b.WriteString(strconv.Itoa(n.CheckDigit()))
+	}
+	return b.String()
+}
+
+func (n isbn10) ISBN13() isbn13 {
+	return append([]int{9, 7, 8}, n...)
 }
 
 type isbn13 isbn
